@@ -98,7 +98,11 @@ export default class DateTimePicker extends Component {
                             <Text>{ this.props.okText }</Text>
                         </TouchableOpacity>
                         <View style={styles.separator}/>
-                        <DatePickerIOS style = {styles.datePicker} {...this.props} />
+                        <DatePickerIOS 
+                            date={this.state.date}
+                            mode={this.state.mode}
+                            onDateChange={(date)=>this.onDateChange(date)}
+                            style={styles.datePicker} {...this.props} />
                     </View>
                 </View>
             )
@@ -117,11 +121,10 @@ const _styles = StyleSheet.create({
     actionSheetContainer: {
         height: Screen.height,
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+        // backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     datePicker: {
-        backgroundColor: 'white',
-        alignItems: 'center',
+        backgroundColor: 'white'
     },
     touchableOpacity: {
         flex: 1,
@@ -129,11 +132,13 @@ const _styles = StyleSheet.create({
     button: {
         paddingVertical: 10,
         backgroundColor: 'white',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end'
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: "#ddd"
     },
     separator: {
         height: 1,
-        backgroundColor: '#CCC'
+        backgroundColor: '#efefef'
     }
 })

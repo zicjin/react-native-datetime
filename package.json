@@ -1,6 +1,6 @@
 {
   "name": "react-native-datetime-zic",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A datetime-picker for react-native support for android and ios. zic: merge from https://github.com/yptech/react-native-datetime/pull/15/files",
   "main": "index.js",
   "repository": {
