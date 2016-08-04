@@ -1,9 +1,4 @@
-/**
- * Created by CnJon on 16/1/21.
- */
-'use strict';
-
-import React,{Component, PropTypes} from 'react';
+import React,{Component, PropTypes} from 'react'
 import {
     DatePickerIOS,
     Dimensions,
@@ -11,19 +6,19 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
-} from 'react-native';
+    View
+} from 'react-native'
 
-const Screen = Dimensions.get('window');
+const Screen = Dimensions.get('window')
 
 export default class DateTimePicker extends Component {
     static propTypes = {
         okText: PropTypes.string
-    };
+    }
 
     static defaultProps = {
         okText: "Ok"
-    };
+    }
 
     constructor(props) {
         super(props);
@@ -31,13 +26,14 @@ export default class DateTimePicker extends Component {
             visible: false,
             mode: 'date',
             date: new Date()
-        };
-        this.callback = ()=>{};
+        }
+        this.callback = ()=>{}
     }
 
     showDatePicker(date, callback) {
         this.callback = callback;
-        date = (date || new Date());
+        callback = callback || this.props.onDateChange
+        date = (date || new Date())
 
         this.setState({
             mode: 'date',
@@ -48,41 +44,43 @@ export default class DateTimePicker extends Component {
 
     showTimePicker(date, callback) {
         this.callback = callback;
+        callback = callback || this.props.onDateChange
         date = (date || new Date());
 
         this.setState({
             mode: 'time',
             visible: true,
             date: date
-        });
+        })
     }
 
     showDateTimePicker(date, callback) {
         this.callback = callback;
-        date = (date || new Date());
+        callback = callback || this.props.onDateChange
+        date = (date || new Date())
 
         this.setState({
             mode: 'datetime',
             visible: true,
             date: date
-        });
+        })
     }
 
     onClose() {
         this.setState({
             visible: false
-        });
+        })
     }
 
     onComplete() {
         this.setState({
             visible: false
-        });
-        this.callback(this.state.date);
+        })
+        this.callback(this.state.date)
     }
 
     onDateChange(date) {
-        this.setState({date: date});
+        this.setState({date: date})
     }
 
     render() {
@@ -94,25 +92,16 @@ export default class DateTimePicker extends Component {
                             style={styles.touchableOpacity}
                             activeOpacity={1}
                             onPress={()=>this.onClose()} />
-                        <DatePickerIOS
-                            date={this.state.date}
-                            mode={this.state.mode}
-                            onDateChange={(date)=>this.onDateChange(date)}
-                            style = {styles.datePicker}
-                        />
-                        <View style={styles.separator}/>
                         <TouchableOpacity
                             onPress={()=>this.onComplete()}
                             style={styles.button}>
                             <Text>{ this.props.okText }</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.touchableOpacity}
-                            activeOpacity={1}
-                            onPress={()=>this.onClose()} />
+                        <View style={styles.separator}/>
+                        <DatePickerIOS style = {styles.datePicker} {...this.props} />
                     </View>
                 </View>
-            );
+            )
     }
 }
 
@@ -140,11 +129,11 @@ const _styles = StyleSheet.create({
     button: {
         paddingVertical: 10,
         backgroundColor: 'white',
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end'
     },
     separator: {
         height: 1,
         backgroundColor: '#CCC'
     }
-});
+})
